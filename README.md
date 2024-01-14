@@ -21,4 +21,5 @@ Try to integrate:
 - OAuth2 between the test client and service side minimally
 - OpenTelemetry Based Traces/Metrics
 - JSON logging via zerolog
-- CI (Actions, golangci-lint, standard test framework, and go-vcr where appropriate)
+- CI (Actions, golangci-lint, standard test framework, and go-vcr where appropriate, dependabot)
+- K8s manifests to run locally on Docker K8s
