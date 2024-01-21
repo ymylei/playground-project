@@ -22,7 +22,8 @@ func APIServer() error {
 
 	// End Routes Here
 	err = r.RunWithContext(ctx)
-	if err != nil {
+	if err != nil && err != context.Canceled {
 		return err
 	}
+	return nil
 }
