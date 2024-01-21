@@ -6,6 +6,8 @@ import (
 	"syscall"
 
 	"github.com/gin-contrib/graceful"
+	"github.com/gin-contrib/logger"
+	"github.com/gin-gonic/gin"
 )
 
 func APIServer() error {
@@ -19,6 +21,7 @@ func APIServer() error {
 	defer r.Close()
 
 	// Insert Routes Here
+	r.GET("/ready", standardLogger(), healthCheck)
 
 	// End Routes Here
 	err = r.RunWithContext(ctx)
@@ -26,4 +29,10 @@ func APIServer() error {
 		return err
 	}
 	return nil
+}
+
+func standardLogger() gin.HandlerFunc {
+	return logger.SetLogger(
+		logger.WithUTC(true),
+	)
 }
