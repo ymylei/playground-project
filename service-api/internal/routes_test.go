@@ -15,6 +15,7 @@ func TestHealthCheck(t *testing.T) {
 	if err != nil {
 		log.Fatal().Err(err).Msg("test api server setup fail")
 	}
+	defer r.Close()
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest("GET", "/ready", nil)

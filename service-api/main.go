@@ -13,6 +13,7 @@ func main() {
 	if err != nil {
 		log.Fatal().Err(err).Msg("web server setup failure")
 	}
+	defer r.Close()
 	err = r.RunWithContext(ctx)
 	if err != nil && err != context.Canceled {
 		log.Fatal().Err(err).Msg("web server crash")
