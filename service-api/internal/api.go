@@ -11,25 +11,14 @@ import (
 	"github.com/rs/zerolog"
 )
 
-func APIServer() error {
+func SetupAPIServer() (context.Context, context.CancelFunc, *graceful.Graceful, error) {
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
-	defer stop()
-
 	r, err := graceful.Default()
 	if err != nil {
-		return err
+		return ctx, stop, nil, err
 	}
-	defer r.Close()
-
-	// Insert Routes Here
-	r.GET("/ready", standardLogger(), healthCheck)
-
-	// End Routes Here
-	err = r.RunWithContext(ctx)
-	if err != nil && err != context.Canceled {
-		return err
-	}
-	return nil
+	setupRoutes(r)
+	return ctx, stop, r, nil
 }
 
 func standardLogger() gin.HandlerFunc {
